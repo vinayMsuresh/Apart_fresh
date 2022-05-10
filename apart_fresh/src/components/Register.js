@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import {Box, Button, Container, TextField} from '@mui/material'
+import {Box, Button, Container, TextField} from '@mui/material';
+import { registerUser } from '../config/MyService';
+import { useNavigate } from 'react-router-dom';
 function Register() {
     const [firstname, setFname] = useState('');
     const [lastname, setLname] = useState('');
@@ -10,11 +12,22 @@ function Register() {
     const [pincode, setPincode] = useState(null);
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
+    const navigate = useNavigate();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        let registered_data = {firstname, lastname, email, phone, address: address1 + ' ' + address2, pincode, password};
-        console.log(registered_data);
+        let registered_data = {firstname, lastname, email, phone, address1, address2, pincode, password};
+        registerUser(registered_data)
+        .then(res=>{
+            if(res.status_code === 201){
+                alert(res.data.msg);
+                navigate('/login');
+            }
+            else{
+                alert('Email address already registered!!');
+                navigate('/login');
+            }
+        })
     }
   return (
       <Container>
@@ -111,6 +124,9 @@ function Register() {
             </div>
 
             <Button type='submit' variant='contained' sx={{mt: 4}} onClick={submitHandler}>Register</Button>
+            <p>
+                Already registered <Button size='sm' href='/login'> login here</Button>
+            </p>
         </Box>
     </Container>
   )
