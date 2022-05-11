@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import {Box, Button, Container, TextField} from '@mui/material';
 import { registerUser } from '../config/MyService';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+
 function Register() {
     const [firstname, setFname] = useState('');
     const [lastname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState(null);
-    const [address1, setAddress1] = useState('');
-    const [address2, setAddress2] = useState('');
+    const [address1, setAddress1] = useState(null);
+    const [address2, setAddress2] = useState(null);
     const [pincode, setPincode] = useState(null);
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
@@ -20,12 +22,11 @@ function Register() {
         registerUser(registered_data)
         .then(res=>{
             if(res.status_code === 201){
-                alert(res.data.msg);
+                swal(res.data.msg,'', "success");
                 navigate('/login');
             }
             else{
-                alert('Email address already registered!!');
-                navigate('/login');
+                swal(res.data.msg,'', "error");
             }
         })
     }
@@ -37,6 +38,7 @@ function Register() {
         sx={{
             '& .MuiTextField-root': { m: 1, width: '25ch' },
             m: 5,
+            mb: 20,
             p: 4,
             border: '2px solid black',
             backgroundColor: 'lightgrey',

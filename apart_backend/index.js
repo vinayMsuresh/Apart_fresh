@@ -10,9 +10,7 @@ app.use(cors());
 app.use('/user', userRoutes);
 
 connectDB();
-app.get('/', (req, res) => {
-    res.send('Hi there');
-})
+
 
 app.listen(3030, (err) => {
     if(err) throw err;

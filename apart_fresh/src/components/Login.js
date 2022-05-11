@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import {Box, Button, Container, TextField} from '@mui/material';
 import {loginUser} from '../config/MyService';
+import swal from 'sweetalert';
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,10 +13,10 @@ function Login() {
         loginUser(body)
         .then(res=>{
             if(res.data.status_code === 200){
-                alert(res.data.msg);
+                swal(res.data.msg,'', "success");;
             }
             else{
-                alert(res.data.msg);
+                swal(res.data.msg,'', "error");;
             }
         })
     } 
@@ -25,7 +27,8 @@ function Login() {
         component="form"
         sx={{
             '& .MuiTextField-root': { m: 1, width: '25ch' },
-            m: 5,
+            mx: 35,
+            mt: 5,
             p: 4,
             border: '2px solid black',
             backgroundColor: 'lightgrey',
@@ -54,7 +57,7 @@ function Login() {
                     onChange={e=>setPassword(e.target.value)}
                 />
             </div>
-            <Button type='submit' variant='contained' sx={{mt: 4}} onClick={LoginHandler}>Register</Button>
+            <Button type='submit' variant='contained' sx={{mt: 4}} onClick={LoginHandler}>Login</Button>
         </Box>
     </Container>
     )

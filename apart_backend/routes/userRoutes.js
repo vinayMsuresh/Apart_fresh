@@ -1,11 +1,12 @@
 const express = require('express');
 const userModel = require('../schemas/User');
 const bcrypt = require('bcrypt');
-
+const registerValidate = require('../validations/registerValidate');
+const loginValidate = require('../validations/loginValidate');
 const saltRounds = 10;
 const router = express.Router();
 
-router.post('/register', async(req, res)=>{
+router.post('/register',registerValidate, async(req, res)=>{
     const data = req.body;
     data.password = bcrypt.hashSync(req.body.password, saltRounds);
     try{
@@ -18,7 +19,7 @@ router.post('/register', async(req, res)=>{
     }
 });
 
-router.post('/login', async(req, res)=>{
+router.post('/login',loginValidate, async(req, res)=>{
     const data = req.body;
     try{
         const user = await userModel.findOne({email: data.email});
