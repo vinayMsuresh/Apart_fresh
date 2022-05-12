@@ -59,6 +59,9 @@ function Login() {
                 />
             </div>
             <Button type='submit' variant='contained' sx={{mt: 4}} onClick={LoginHandler}>Login</Button>
+            <p>
+                Forgot Password <Button size='sm' href='/forgot_pass'> Click here</Button>
+            </p>
         </Box>
     </Container>
     )
