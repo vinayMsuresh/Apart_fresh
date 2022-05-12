@@ -13,10 +13,11 @@ function Login() {
         loginUser(body)
         .then(res=>{
             if(res.data.status_code === 200){
-                swal(res.data.msg,'', "success");;
+                localStorage.setItem('token', res.data.token);
+                swal(res.data.msg,'', "success");
             }
             else{
-                swal(res.data.msg,'', "error");;
+                swal(res.data.msg,'', "error");
             }
         })
     } 

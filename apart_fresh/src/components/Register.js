@@ -21,7 +21,7 @@ function Register() {
         let registered_data = {firstname, lastname, email, phone, address1, address2, pincode, password};
         registerUser(registered_data)
         .then(res=>{
-            if(res.status_code === 201){
+            if(res.data.status_code === 201){
                 swal(res.data.msg,'', "success");
                 navigate('/login');
             }
